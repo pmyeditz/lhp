@@ -187,7 +187,3 @@ Jika Anda belum menginstal **maatwebsite/excel**, jalankan perintah berikut untu
      ```
 
 ---
-
-### **Kesimpulan**
-
-Langkah-langkah di atas adalah cara untuk **Git clone** repository, mengkonfigurasi database menggunakan **MAMP** atau **XAMPP**, serta menggunakan paket **maatwebsite/excel** untuk pengolahan file Excel dalam proyek Laravel. Pastikan Anda telah mengonfigurasi semua dependensi dan environment dengan benar untuk menjalankan aplikasi secara lokal.
