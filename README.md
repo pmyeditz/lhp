@@ -64,3 +64,130 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+Berikut adalah tutorial langkah-langkah untuk melakukan **Git clone**, serta pengaturan **database** menggunakan MAMP dan XAMPP dengan konfigurasi untuk menggunakan **maatwebsite/excel**.
+
+---
+
+### **Langkah-langkah Git Clone dan Konfigurasi Database**
+
+#### 1. **Clone Repository dengan Git**
+
+1. **Buka terminal** atau **command prompt**.
+2. **Clone repository** dari GitHub dengan perintah berikut:
+   ```bash
+   git clone https://github.com/pmyeditz/lhp.git
+   ```
+   Gantilah URL dengan URL yang sesuai jika berbeda. Perintah ini akan men-download semua file dari repository GitHub ke komputer Anda.
+
+#### 2. **Masuk ke Direktori Project**
+Setelah berhasil melakukan clone, masuk ke direktori project:
+```bash
+cd lhp
+```
+
+#### 3. **Instalasi Dependensi dengan Composer**
+Pastikan **Composer** sudah terinstall di komputer Anda. Jika belum, Anda dapat mengunduhnya dari [https://getcomposer.org](https://getcomposer.org).
+
+Setelah itu, jalankan perintah berikut untuk menginstal dependensi project, termasuk **maatwebsite/excel**:
+```bash
+composer install
+```
+
+#### 4. **Konfigurasi Database (MAMP dan XAMPP)**
+
+##### **A. Menggunakan MAMP**
+
+Jika Anda menggunakan **MAMP**, ubah file `.env` yang ada di dalam project Anda. Cari bagian pengaturan **database** dan sesuaikan dengan konfigurasi berikut:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=lhp_produksi
+DB_USERNAME="root"
+DB_PASSWORD="root"
+UNIX_SOCKET=/Applications/MAMP/tmp/mysql/mysql.sock
+DB_SOCKET=/Applications/MAMP/tmp/mysql/mysql.sock
+```
+
+Penjelasan:
+- **DB_HOST** adalah alamat server database, dalam hal ini `127.0.0.1` (localhost).
+- **DB_PORT** adalah port yang digunakan oleh MySQL (standarnya 3306).
+- **DB_DATABASE** adalah nama database yang akan digunakan, pastikan Anda sudah membuatnya di MAMP.
+- **DB_USERNAME** dan **DB_PASSWORD** adalah kredensial untuk login ke MySQL. Di MAMP defaultnya adalah `root` untuk keduanya.
+- **UNIX_SOCKET** dan **DB_SOCKET** menunjukkan lokasi socket MySQL yang digunakan oleh MAMP.
+
+##### **B. Menggunakan XAMPP**
+
+Jika Anda menggunakan **XAMPP**, ubah file `.env` seperti berikut:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=lhp_produksi
+DB_USERNAME="root"
+DB_PASSWORD=""
+DB_SOCKET=
+```
+
+Penjelasan:
+- **DB_USERNAME** di XAMPP biasanya menggunakan `root` dan tanpa password, jadi kosongkan **DB_PASSWORD**.
+- **DB_SOCKET** biasanya tidak diperlukan di XAMPP, jadi biarkan kosong.
+
+#### 5. **Menjalankan Migration dan Seeding**
+
+Setelah konfigurasi database selesai, jalankan **migration** dan **seeding** untuk membuat tabel-tabel di database. Jalankan perintah berikut:
+
+```bash
+php artisan migrate --seed
+```
+
+Perintah ini akan membuat tabel di database yang telah Anda tentukan di `.env` dan menambahkan data awal jika ada seeder yang disiapkan.
+
+#### 6. **Menjalankan Aplikasi**
+
+Setelah semua langkah di atas selesai, Anda dapat menjalankan server lokal untuk menguji aplikasi:
+
+```bash
+php artisan serve
+```
+
+Aplikasi akan dapat diakses di **http://localhost:8000**.
+
+---
+
+### **Menggunakan maatwebsite/excel**
+
+1. **Instalasi paket maatwebsite/excel**:
+Jika Anda belum menginstal **maatwebsite/excel**, jalankan perintah berikut untuk menambahkannya ke project Anda:
+   ```bash
+   composer require maatwebsite/excel
+   ```
+
+2. **Penggunaan dalam Project**:
+   - **Membaca file Excel**:
+     Di controller atau bagian lain aplikasi, Anda dapat menggunakan paket ini untuk membaca file Excel dengan cara berikut:
+     ```php
+     use Maatwebsite\Excel\Facades\Excel;
+     use App\Imports\YourImport;
+
+     Excel::import(new YourImport, 'yourfile.xlsx');
+     ```
+   
+   - **Menulis ke file Excel**:
+     Untuk menulis data ke file Excel, Anda dapat menggunakan:
+     ```php
+     use Maatwebsite\Excel\Facades\Excel;
+     use App\Exports\YourExport;
+
+     return Excel::download(new YourExport, 'yourfile.xlsx');
+     ```
+
+---
+
+### **Kesimpulan**
+
+Langkah-langkah di atas adalah cara untuk **Git clone** repository, mengkonfigurasi database menggunakan **MAMP** atau **XAMPP**, serta menggunakan paket **maatwebsite/excel** untuk pengolahan file Excel dalam proyek Laravel. Pastikan Anda telah mengonfigurasi semua dependensi dan environment dengan benar untuk menjalankan aplikasi secara lokal.
