@@ -9,9 +9,10 @@ Buka terminal atau command prompt, lalu jalankan perintah berikut untuk meng-clo
 
 ```bash
 git clone https://github.com/pmyeditz/lhp.git
+```
+```bash
 cd lhp
 ```
-
 #### 2. **Salin File `.env` dan Generate Key Aplikasi**
 Setelah berada di dalam direktori proyek, salin file `.env.example` menjadi `.env` dan buat key aplikasi Laravel:
 
