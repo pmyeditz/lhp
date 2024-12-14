@@ -17,7 +17,6 @@ Setelah berada di dalam direktori proyek, salin file `.env.example` menjadi `.en
 
 ```bash
 cp .env.example .env
-php artisan key:generate
 ```
 
 #### 3. **Konfigurasi Database**
@@ -54,6 +53,7 @@ Setelah konfigurasi database selesai, instal semua dependensi proyek dengan peri
 
 ```bash
 composer install
+php artisan key:generate
 ```
 
 #### 5. **Menjalankan Migration dan Seeding**
