@@ -54,7 +54,6 @@ Setelah konfigurasi database selesai, instal semua dependensi proyek dengan peri
 
 ```bash
 composer install
-php artisan key:generate
 ```
 
 #### 5. **Menbuat key**
