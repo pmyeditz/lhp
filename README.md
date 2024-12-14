@@ -57,6 +57,11 @@ composer install
 php artisan key:generate
 ```
 
+#### 5. **Menbuat key**
+```bash
+php artisan key:generate
+```
+
 #### 5. **Menjalankan Migration dan Seeding**
 Untuk membuat tabel dan mengisi data awal, jalankan migration dan seeding dengan perintah:
 
