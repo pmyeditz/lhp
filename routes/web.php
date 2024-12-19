@@ -31,10 +31,6 @@ use Illuminate\Support\Facades\App;
 Route::get('/', function () {
     return redirect('/login');
 });
-Route::get('/laporan/export', function () {
-    $excel = App::make(Excel::class);
-    return $excel->download(new LaporanExport, 'laporan.xlsx');
-})->name('laporan.export');
 // login
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
@@ -64,12 +60,18 @@ Route::middleware('auth')->group(function () {
     Route::resource('pengiriman', PengirimanController::class);
 
     // Route Resource untuk Laporan
-    Route::resource('laporans', LaporanController::class);
     // pengguna
     Route::get('/pengguna', [UserController::class, 'index']);
     Route::resource('users', UserController::class);
 
 
+    Route::get('/laporan', [LaporanController::class, 'index'])->name('laporan.index');
+    Route::get('/laporan/export', function () {
+        $excel = App::make(Excel::class);
+        return $excel->download(new LaporanExport, 'laporan.xlsx');
+    })->name('laporan.export');
+    Route::get('/laporan/pdf', [LaporanController::class, 'generatePDF'])->name('laporan.pdf');
+    Route::resource('laporans', LaporanController::class);
     // // produksi
     // // Route::get('/produksi', [ProduksiController::class, 'index']);
     // Route::de('produksi', ProduksiController::class);
@@ -100,7 +102,6 @@ Route::middleware('auth')->group(function () {
 
     // // laporan
     // Route::resource('/laporan', LaporanController::class);
-
 
 
     // Route::get('/kualitas', [AuthController::class, 'kualitas']);

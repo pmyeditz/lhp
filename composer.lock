@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "db1bd1d8a447fc8e3c87c9731f882545",
+    "content-hash": "1a303febbc678e5a09d16c1d21db165e",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -33,17 +33,17 @@
             },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-master": "3.0-dev"
-                },
                 "laravel": {
+                    "aliases": {
+                        "PDF": "Barryvdh\\DomPDF\\Facade\\Pdf",
+                        "Pdf": "Barryvdh\\DomPDF\\Facade\\Pdf"
+                    },
                     "providers": [
                         "Barryvdh\\DomPDF\\ServiceProvider"
-                    ],
-                    "aliases": {
-                        "Pdf": "Barryvdh\\DomPDF\\Facade\\Pdf",
-                        "PDF": "Barryvdh\\DomPDF\\Facade\\Pdf"
-                    }
+                    ]
+                },
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
                 }
             },
             "autoload": {

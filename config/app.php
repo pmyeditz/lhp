@@ -1,5 +1,6 @@
 <?php
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Facade;
 use Barryvdh\DomPDF\ServiceProvider;
 
@@ -170,8 +171,10 @@ return [
         App\Providers\RouteServiceProvider::class,
 
 
-    ])->toArray(),
+        // Pdf
+        Barryvdh\DomPDF\ServiceProvider::class,
 
+    ])->toArray(),
     /*
     |--------------------------------------------------------------------------
     | Class Aliases

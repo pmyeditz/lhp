@@ -8,35 +8,52 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex p-4 justify-content-between">
-                            <div class="row">
-                                <h5 class="card-title">Laporan Harian Produksi</h5>
+                            <div>
+                                <h5 class="card-title">Laporan Penerimaan</h5>
                             </div>
-                            <div class="mb-3">
+                            <div>
                                 <a href="{{ route('laporan.export') }}" class="btn btn-success">
-                                    <i class="fas fa-download"></i> Ekspor
+                                    <i class="fas fa-file-excel"></i> Excel
+                                </a>
+                                <a href="{{ route('laporan.pdf', ['start_date' => request('start_date')]) }}" target="_blank" class="btn btn-primary">
+                                    <i class="fas fa-file-pdf"></i> PDF
                                 </a>
                             </div>
                         </div>
                         <hr class="bg-dark">
 
+
                         <!-- Tabel Data -->
                         <div class="table-responsive p-4 mt-3">
-                            <table class="table table-striped" style="width:100%">
+                            <!-- Form Filter -->
+                            <form action="{{ route('laporans.index') }}" method="GET" class="mb-4">
+                                <div class="d-flex">
+                                    <div class="mr-3">
+                                        <input type="date" name="start_date" id="start_date" class="form-control" value="{{ request('start_date') }}">
+                                    </div>
+                                    <div>
+                                        <button type="submit" class="btn btn-primary">Filter</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <table id="example" class="table table-striped" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>Kode Penerimaan</th>
                                         <th>Nama Pemasok</th>
-                                        <th>Hari Ini (Kg)</th>
-                                        <th>S/D Hari Ini (Kg)</th>
+                                        <th>Tanggal Diterima</th>
+                                        <th>Berat Diterima (kg)</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($suppliers as $index => $supplier)
+                                    @foreach ($penerimaans as $index => $penerimaan)
                                         <tr>
                                             <td>{{ $index + 1 }}</td>
-                                            <td>{{ $supplier->nama_pemasok }}</td>
-                                            <td>{{ number_format($supplier->hari_ini) }} kg</td>
-                                            <td>{{ number_format($supplier->sd_hari_ini) }} kg</td>
+                                            <td>{{ $penerimaan->kode_penerimaan }}</td>
+                                            <td>{{ $penerimaan->pemasok->nama_pemasok ?? '-' }}</td>
+                                            <td>{{ $penerimaan->tanggal_diterima }}</td>
+                                            <td>{{ $penerimaan->berat_diterima }} Kg</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

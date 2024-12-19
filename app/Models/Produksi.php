@@ -18,7 +18,6 @@ class Produksi extends Model
         'ffa',
         'total_produksi',
     ];
-
     public function qualitas()
     {
         return $this->hasOne(Qualitas::class, 'id_produksi');

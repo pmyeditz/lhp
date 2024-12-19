@@ -2,34 +2,59 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Produksi;
 use App\Models\Penerimaan;
 use Illuminate\Http\Request;
 use App\Exports\LaporanExport;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Routing\Controller;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Models\Supplier; // Contoh model Supplier
 
 class LaporanController extends Controller
 {
     /**
-     * Fungsi untuk menampilkan halaman laporan
+     * Menampilkan halaman laporan penerimaan
      */
     public function index()
     {
-        $suppliers = Supplier::all();
-        $produksis = Produksi::all();
-        $penerimaans = Penerimaan::all();
+        $start_date = request('start_date');
 
-        // Mengirimkan data ke view
-        return view('contents.laporan', compact('suppliers', 'produksis', 'penerimaans'));
+        if ($start_date) {
+            $penerimaans = Penerimaan::with('pemasok')
+                ->whereDate('tanggal_diterima', '=', $start_date)
+                ->get();
+        } else {
+            $penerimaans = Penerimaan::with('pemasok')
+                ->whereDate('tanggal_diterima', now()->toDateString())
+                ->get();
+        }
+
+        return view('contents.laporan', [
+            'penerimaans' => $penerimaans
+        ]);
     }
 
+    // pdf
+    public function generatePDF(Request $request)
+    {
+        $startDate = $request->input('start_date', now()->toDateString());
+
+        $penerimaans = Penerimaan::with('pemasok')
+            ->whereDate('tanggal_diterima', $startDate)
+            ->get();
+
+        $pdf = Pdf::loadView('contents.laporan_pdf', compact('penerimaans'));
+
+        return $pdf->download('laporan_penerimaan_' . $startDate . '.pdf');
+    }
+
+
+
+
     /**
-     * Fungsi untuk mengekspor laporan ke Excel
+     * Mengekspor laporan ke file Excel
      */
     public function export()
     {
-        return Excel::download(new LaporanExport, 'laporan_harian_produksi.xlsx');
+        return Excel::download(new LaporanExport, 'laporan_penerimaan.xlsx');
     }
 }
