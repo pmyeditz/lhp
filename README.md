@@ -68,15 +68,7 @@ Untuk membuat tabel dan mengisi data awal, jalankan migration dan seeding dengan
 php artisan migrate --seed
 ```
 
-#### 6. **Instalasi Paket maatwebsite/excel dan Install Library DomPDF**
-Jika Anda perlu menggunakan paket **maatwebsite/excel** untuk pengolahan file Excel, jalankan perintah berikut:
-
-```bash
-composer require maatwebsite/excel
-composer require barryvdh/laravel-dompdf
-```
-
-#### 7. **Menjalankan Aplikasi Laravel**
+#### 6. **Menjalankan Aplikasi Laravel**
 Jalankan server Laravel dengan perintah berikut:
 
 ```bash
@@ -85,7 +77,7 @@ php artisan serve
 
 Aplikasi Laravel akan dapat diakses di **http://localhost:8000**.
 
-#### 8. **Akun Pengguna**
+#### 7. **Akun Pengguna**
 Akun yang sudah disediakan untuk login ke aplikasi:
 - **Username:** admin, **Password:** 123
 - **Username:** admin1, **Password:** 123
