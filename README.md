@@ -68,11 +68,12 @@ Untuk membuat tabel dan mengisi data awal, jalankan migration dan seeding dengan
 php artisan migrate --seed
 ```
 
-#### 6. **Instalasi Paket maatwebsite/excel**
+#### 6. **Instalasi Paket maatwebsite/excel dan Install Library DomPDF**
 Jika Anda perlu menggunakan paket **maatwebsite/excel** untuk pengolahan file Excel, jalankan perintah berikut:
 
 ```bash
 composer require maatwebsite/excel
+composer require barryvdh/laravel-dompdf
 ```
 
 #### 7. **Menjalankan Aplikasi Laravel**
